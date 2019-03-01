@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import QuizQuestion from './QuizQuestion';
 import QuizEnd from './QuizEnd';
+import QuizStatus from './QuizStatus';
 
 let quizData = require('./quiz_data.json');
 
@@ -52,10 +53,15 @@ class Quiz extends Component {
                         ? <QuizEnd resetClickHandler={this.handleResetClick}
                             correctAnswers={this.state.correctAnswers}
                             incorrectAnswers={this.state.incorrectAnswers} />
-                        : <QuizQuestion quiz_question=
-                            {quizData.quiz_questions[this.state.quiz_position - 1]}
-                            setCorrectAnswer={this.setCorrectAnswer}
-                            setIncorrectAnswer={this.setIncorrectAnswer} />
+                        : <Fragment>
+                            <QuizStatus quiz_position={this.state.quiz_position}
+                                correctAnswers={this.state.correctAnswers}
+                                incorrectAnswers={this.state.incorrectAnswers} />
+                            <QuizQuestion quiz_question=
+                                {quizData.quiz_questions[this.state.quiz_position - 1]}
+                                setCorrectAnswer={this.setCorrectAnswer}
+                                setIncorrectAnswer={this.setIncorrectAnswer} />
+                        </Fragment>
                 }
             </div>
         );
