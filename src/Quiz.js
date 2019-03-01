@@ -56,7 +56,8 @@ class Quiz extends Component {
                         : <Fragment>
                             <QuizStatus quiz_position={this.state.quiz_position}
                                 correctAnswers={this.state.correctAnswers}
-                                incorrectAnswers={this.state.incorrectAnswers} />
+                                incorrectAnswers={this.state.incorrectAnswers}
+                                nrOfQuestions={quizData.quiz_questions.length} />
                             <QuizQuestion quiz_question=
                                 {quizData.quiz_questions[this.state.quiz_position - 1]}
                                 setCorrectAnswer={this.setCorrectAnswer}
