@@ -9,6 +9,8 @@ class QuizEnd extends Component {
         return (
             <div>
                 <p>Thanks for playing!</p>
+                <p>Correct answers: { this.props.correctAnswers }</p>
+                <p>Incorrect answers: { this.props.incorrectAnswers }</p>
                 <a href='' onClick={this.handleResetClick.bind(this)}>
                     Reset Quiz
                 </a>

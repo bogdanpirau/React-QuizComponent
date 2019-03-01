@@ -7,12 +7,34 @@ let quizData = require('./quiz_data.json');
 class Quiz extends Component {
     constructor(props) {
         super(props);
-        this.state = { quiz_position: 1 };
+        this.state = {
+            quiz_position: 1,
+            correctAnswers: 0,
+            incorrectAnswers: 0
+        };
     }
 
     showNextQuestion = () => {
         this.setState((state) => {
-            return { quiz_position: state.quiz_position + 1 };
+            return {};
+        });
+    }
+
+    setCorrectAnswer = () => {
+        this.setState((state) => {
+            return {
+                quiz_position: state.quiz_position + 1,
+                correctAnswers: state.correctAnswers + 1
+            };
+        });
+    }
+
+    setIncorrectAnswer = () => {
+        this.setState((state) => {
+            return {
+                quiz_position: state.quiz_position + 1,
+                incorrectAnswers: state.incorrectAnswers + 1
+            };
         });
     }
 
@@ -27,10 +49,13 @@ class Quiz extends Component {
             <div>
                 {
                     isQuizEnd
-                    ? <QuizEnd resetClickHandler={this.handleResetClick}/>
-                    : <QuizQuestion quiz_question = 
-                        { quizData.quiz_questions[this.state.quiz_position - 1] }
-                        showNextQuestionHandler = { this.showNextQuestion} />
+                        ? <QuizEnd resetClickHandler={this.handleResetClick}
+                            correctAnswers={this.state.correctAnswers}
+                            incorrectAnswers={this.state.incorrectAnswers} />
+                        : <QuizQuestion quiz_question=
+                            {quizData.quiz_questions[this.state.quiz_position - 1]}
+                            setCorrectAnswer={this.setCorrectAnswer}
+                            setIncorrectAnswer={this.setIncorrectAnswer} />
                 }
             </div>
         );
