@@ -3,3 +3,12 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+
+.correct {
+  border: 1px solid green;
+}
+
+.incorrect {
+  border: 1px solid red;
+}

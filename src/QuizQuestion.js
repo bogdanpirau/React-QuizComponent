@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import QuizQuestionButton from './QuizQuestionButton.js'
+import classNames from 'classnames'
 
 class QuizQuestion extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class QuizQuestion extends Component {
         if (buttonText === this.props.quiz_question.answer) {
             this.setState({ incorrectAnswer: false });
             this.props.setCorrectAnswer();
-        } else{
+        } else {
             this.setState({ incorrectAnswer: true })
             this.props.setIncorrectAnswer();
         }
@@ -19,18 +20,22 @@ class QuizQuestion extends Component {
 
     render() {
         let { quiz_question } = this.props;
+        let classes = classNames({
+            'incorrect': this.state.incorrectAnswer,
+            'correct': !this.state.incorrectAnswer
+        });
 
         return (
             <main>
                 <section>
-                    <p>{quiz_question.instruction_text}</p>
+                    <p className={ classes }>{quiz_question.instruction_text}</p>
                 </section>
                 <section className="buttons">
                     <ul>
                         {
                             this.props.quiz_question.answer_options.map((answer_option, index) => {
                                 return <QuizQuestionButton
-                                    key={index} 
+                                    key={index}
                                     button_text={answer_option}
                                     clickHandler={this.handleClick.bind(this)} />
                             })
