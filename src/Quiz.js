@@ -11,7 +11,8 @@ class Quiz extends Component {
         this.state = {
             quiz_position: 1,
             correctAnswers: 0,
-            incorrectAnswers: 0
+            incorrectAnswers: 0,
+            questions: quizData.quiz_questions
         };
     }
 
@@ -43,8 +44,17 @@ class Quiz extends Component {
         this.setState({ quiz_position: 1 });
     }
 
+    onAddNewQuestion = newQuestion => {
+        let newQuestions = this.state.questions;
+
+        newQuestion["id"] = newQuestions.length;
+        newQuestions.push(newQuestion);
+
+        this.setState({ questions: newQuestions });
+    }
+
     render() {
-        const isQuizEnd = ((this.state.quiz_position - 1) === quizData.quiz_questions.length);
+        const isQuizEnd = ((this.state.quiz_position - 1) === this.state.questions.length);
 
         return (
             <div>
@@ -52,16 +62,18 @@ class Quiz extends Component {
                     isQuizEnd
                         ? <QuizEnd resetClickHandler={this.handleResetClick}
                             correctAnswers={this.state.correctAnswers}
-                            incorrectAnswers={this.state.incorrectAnswers} />
+                            incorrectAnswers={this.state.incorrectAnswers}
+                            onAddNewQuestion={this.onAddNewQuestion} />
                         : <Fragment>
                             <QuizStatus quiz_position={this.state.quiz_position}
                                 correctAnswers={this.state.correctAnswers}
                                 incorrectAnswers={this.state.incorrectAnswers}
-                                nrOfQuestions={quizData.quiz_questions.length} />
+                                nrOfQuestions={this.state.questions.length} />
                             <QuizQuestion quiz_question=
-                                {quizData.quiz_questions[this.state.quiz_position - 1]}
+                                {this.state.questions[this.state.quiz_position - 1]}
                                 setCorrectAnswer={this.setCorrectAnswer}
-                                setIncorrectAnswer={this.setIncorrectAnswer} />
+                                setIncorrectAnswer={this.setIncorrectAnswer}
+                                onAddNewQuestion={this.onAddNewQuestion} />
                         </Fragment>
                 }
             </div>
