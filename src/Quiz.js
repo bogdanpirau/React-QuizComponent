@@ -3,7 +3,7 @@ import QuizQuestion from './QuizQuestion';
 import QuizEnd from './QuizEnd';
 import QuizStatus from './QuizStatus';
 
-let quizData = require('./quiz_data.json');
+const quizData = require('./quiz_data.json');
 
 class Quiz extends Component {
     constructor(props) {
